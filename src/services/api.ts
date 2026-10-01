@@ -1,6 +1,7 @@
 import type { User, Product, Category, Brand, Order, AdminStats, OrderStatus, PaymentMethod } from '../types/index.ts';
 
 const TOKEN_KEY = 'atelier_auth_token';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
 export function getStoredToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -22,7 +23,8 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     ...(options.headers || {}),
   };
 
-  const response = await fetch(endpoint, {
+  const url = `${API_BASE_URL}${endpoint}`;
+  const response = await fetch(url, {
     ...options,
     headers,
   });

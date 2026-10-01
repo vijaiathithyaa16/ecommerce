@@ -8,6 +8,7 @@ import { CartDrawer } from './components/CartDrawer.tsx';
 import { CheckoutView } from './components/CheckoutView.tsx';
 import { OrderTracker } from './components/OrderTracker.tsx';
 import { AdminDashboard } from './components/AdminDashboard.tsx';
+import { CraftStorySection } from './components/CraftStorySection.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { Footer } from './components/Footer.tsx';
 
@@ -30,6 +31,7 @@ const MainContent: React.FC = () => {
           <>
             <Hero onExplore={handleExplore} />
             <Catalog />
+            <CraftStorySection />
           </>
         )}
 

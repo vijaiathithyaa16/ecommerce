@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
+    "dev:backend": "tsx server/standalone.ts",
     "build": "vite build",
+    "build:frontend": "vite build",
     "start": "tsx server.ts",
+    "start:backend": "tsx server/standalone.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"

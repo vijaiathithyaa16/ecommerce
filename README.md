@@ -64,66 +64,85 @@ The platform is pre-seeded with two demo accounts for testing:
 
 ---
 
-## 📂 Project Structure
+## 📂 Project Structure (Separated Frontend & Backend)
 
 ```text
+├── server/                      # ─── DECOUPLED BACKEND ───
+│   ├── app.ts                  # Pure Express REST API application
+│   ├── db.ts                   # Relational database engine, PBKDF2 hashing & seed fixtures
+│   └── standalone.ts           # Independent backend server entry point (PORT 5000)
 ├── data/
-│   └── store.json               # Relational persistent database store
-├── src/
+│   └── store.json              # Relational persistent database storage
+├── src/                        # ─── DECOUPLED FRONTEND ───
 │   ├── components/
-│   │   ├── AdminDashboard.tsx   # Admin CMS (KPIs, Products, Orders, Taxonomy, Users)
-│   │   ├── AuthModal.tsx        # Authentication modal & one-click demo logins
-│   │   ├── CartDrawer.tsx       # Slide-over shopping bag with threshold meter
-│   │   ├── Catalog.tsx          # Filterable, searchable product grid
-│   │   ├── CheckoutView.tsx     # Multi-step checkout with address & payment modes
-│   │   ├── Footer.tsx           # Quiet, compliant footer with navigation & policies
-│   │   ├── Header.tsx           # 3-zone Top Bar Contract navigation
-│   │   ├── Hero.tsx             # Editorial campaign hero with proof adjacency
-│   │   ├── OrderTracker.tsx     # Real-time 4-step dispatch progress & audit log
-│   │   ├── ProductCard.tsx      # High-density product card with Zero-Pill metadata
+│   │   ├── AdminDashboard.tsx  # Admin CMS (KPIs, Products, Orders, Taxonomy, Users)
+│   │   ├── AuthModal.tsx       # Authentication modal & one-click demo logins
+│   │   ├── CartDrawer.tsx      # Slide-over shopping bag with threshold meter
+│   │   ├── Catalog.tsx         # Filterable, searchable product grid
+│   │   ├── CheckoutView.tsx    # Multi-step checkout with address & payment modes
+│   │   ├── CraftStorySection.tsx # Workshop craftsmanship story with background visual
+│   │   ├── Footer.tsx          # Quiet, compliant footer with navigation & policies
+│   │   ├── Header.tsx          # 3-zone Top Bar Contract navigation
+│   │   ├── Hero.tsx            # Architectural sunlit studio hero with background artwork
+│   │   ├── OrderTracker.tsx    # Real-time 4-step dispatch progress & audit log
+│   │   ├── ProductCard.tsx     # High-density product card with Zero-Pill metadata
 │   │   └── ProductDetailModal.tsx # Contiguous purchase module & technical specs
 │   ├── context/
-│   │   └── StoreContext.tsx     # Global cart, user state, and view routing
-│   ├── server/
-│   │   └── db.ts                # Relational database engine, PBKDF2 hashing & seed data
+│   │   └── StoreContext.tsx    # Global cart, user state, and view routing
 │   ├── services/
-│   │   └── api.ts               # Frontend API service layer (fetch + auth tokens)
+│   │   └── api.ts              # Frontend API client (supports VITE_API_URL for separate hosts)
 │   ├── types/
-│   │   └── index.ts             # TypeScript interfaces for all domain entities
+│   │   └── index.ts            # TypeScript interfaces for all domain entities
 │   ├── utils/
-│   │   └── productImages.ts     # Resilient vector artworks for Zero-Broken-Image safety
-│   ├── App.tsx                  # Root application view coordinator
-│   ├── index.css                # Tailwind CSS v4 setup and typography themes
-│   └── main.tsx                 # React entry point
-├── server.ts                    # Full-stack Express backend & Vite middleware server
-├── metadata.json                # Project manifest and AI Studio capabilities
-├── package.json                 # Dependencies and npm scripts
-└── tsconfig.json                # TypeScript compiler configuration
+│   │   ├── backgrounds.ts      # Architectural background artworks & studio textures
+│   │   └── productImages.ts    # Resilient vector artworks for Zero-Broken-Image safety
+│   ├── App.tsx                 # Root application view coordinator
+│   ├── index.css               # Tailwind CSS v4 setup and typography themes
+│   └── main.tsx                # React entry point
+├── server.ts                   # Unified Full-Stack entry point (Express + Vite)
+├── metadata.json               # Project manifest and AI Studio capabilities
+├── package.json                # Dependencies and npm scripts
+└── tsconfig.json               # TypeScript compiler configuration
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Deployment Options
 
-### 1. Installation
-Install all dependencies:
+### Option A: Unified Full-Stack Deployment (Default / Cloud Run / Single Container)
+Run frontend and backend together from a single Node.js process:
 ```bash
+# 1. Install dependencies
 npm install
-```
 
-### 2. Development Mode
-Run the development server with Vite middleware:
-```bash
-npm run dev
-```
-Open your browser at [http://localhost:3000](http://localhost:3000).
-
-### 3. Production Build & Start
-Compile the client bundle and run the production server:
-```bash
+# 2. Build the frontend
 npm run build
+
+# 3. Start unified production server (serves both API & Frontend on port 3000)
 npm start
 ```
+
+### Option B: Separate Frontend and Backend Deployment
+Frontend and Backend can be deployed independently across different hosting providers:
+
+#### 1. Deploy Backend Separately (Render, Railway, Fly.io, AWS, Docker):
+- **Command to run backend**:
+  ```bash
+  npm run start:backend
+  ```
+- Exposes all REST APIs at `http://localhost:5000/api/*` (or configured `PORT`).
+- Health check available at `/api/health`.
+
+#### 2. Deploy Frontend Separately (Vercel, Netlify, Cloudflare Pages, S3):
+- Build the client distribution:
+  ```bash
+  npm run build:frontend
+  ```
+- Set environment variable pointing to your deployed backend URL:
+  ```env
+  VITE_API_URL="https://your-backend-api.onrender.com"
+  ```
+- Output directory to publish: `dist/`.
 
 ### 4. Code Quality & Verification
 Validate TypeScript types:
