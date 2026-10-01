@@ -1,0 +1,6 @@
+{
+  "name": "Atelier Commerce",
+  "description": "Full-stack e-commerce platform with dynamic catalog filtering, cart management, secure checkout, live order tracking, and comprehensive admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
