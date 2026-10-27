@@ -1,7 +1,9 @@
-// Standalone Backend Server entry point for separate backend deployment (e.g., Render, Railway, AWS, Docker)
+import cors from 'cors';
 import { backendApp } from './app.ts';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
+
+backendApp.use(cors({ origin: true, credentials: true }));
 
 backendApp.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`[Atelier Backend API] Running independently at http://0.0.0.0:${PORT}`);

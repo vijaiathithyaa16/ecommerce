@@ -5,30 +5,7 @@ import type { OrderStatus } from '../src/types/index.ts';
 
 export const backendApp = express();
 
-// Allowed frontend origins: Vite dev server + Vercel domains + Render CLIENT_URL env var
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://ecommerce-src.vercel.app',
-  process.env.CLIENT_URL,
-].filter(Boolean) as string[];
-
-backendApp.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl) or matched origins
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        // Fallback: allow request so CORS does not silently drop unlisted preview domains
-        callback(null, true);
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
-
+backendApp.use(cors({ origin: true, credentials: true }));
 backendApp.use(express.json({ limit: '10mb' }));
 backendApp.use(express.urlencoded({ extended: true }));
 
