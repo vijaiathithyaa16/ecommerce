@@ -1,7 +1,7 @@
 import type { User, Product, Category, Brand, Order, AdminStats, OrderStatus, PaymentMethod } from '../types/index.ts';
 
 const TOKEN_KEY = 'atelier_auth_token';
-const API_BASE_URL = (import.meta.env.VITE_API_URL || ''https://ecommerce-src.vercel.app/'');
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ecommerce-src.vercel.app/';
 
 export function getStoredToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
